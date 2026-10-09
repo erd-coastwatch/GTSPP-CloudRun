@@ -1,0 +1,225 @@
+{
+  "global": {
+    "acknowledgment": "These data were acquired from the US NOAA National Oceanographic Data Center (NODC) on 2026-09-08 from https://www.nodc.noaa.gov/GTSPP/.",
+    "cdm_altitude_proxy": "depth",
+    "cdm_data_type": "TrajectoryProfile",
+    "cdm_profile_variables": "station_id, longitude, latitude, time",
+    "cdm_trajectory_variables": "trajectory, org, type, platform, cruise",
+    "Conventions": "COARDS, WOCE, GTSPP, CF-1.10, ACDD-1.3",
+    "creator_email": "nodc.gtspp@noaa.gov",
+    "creator_name": "NOAA NESDIS NODC (IN295)",
+    "creator_url": "https://www.nodc.noaa.gov/GTSPP/",
+    "crs": "EPSG:4326",
+    "defaultGraphQuery": "longitude,latitude,station_id&time%3E=max(time)-7days&time%3C=max(time)&.draw=markers&.marker=10|5",
+    "Easternmost_Easting": 179.59800720214844,
+    "featureType": "TrajectoryProfile",
+    "file_source": "The GTSPP Continuously Managed Data Base",
+    "geospatial_lat_max": 84.96600341796875,
+    "geospatial_lat_min": -66.58999633789062,
+    "geospatial_lat_units": "degrees_north",
+    "geospatial_lon_max": 179.59800720214844,
+    "geospatial_lon_min": -179.50900268554688,
+    "geospatial_lon_units": "degrees_east",
+    "geospatial_vertical_max": 2000.0,
+    "geospatial_vertical_min": 0.0,
+    "geospatial_vertical_positive": "down",
+    "geospatial_vertical_units": "m",
+    "gtspp_ConventionVersion": "GTSPP4.0",
+    "gtspp_handbook_version": "GTSPP Data User's Manual 1.0",
+    "gtspp_program": "writeGTSPPnc40.f90",
+    "gtspp_programVersion": "1.8",
+    "history": "2024-12-31 csun writeGTSPPnc40.f90 Version 1.8\n.tgz files from ftp.nodc.noaa.gov /pub/data.nodc/gtspp/bestcopy/netcdf (https://www.nodc.noaa.gov/GTSPP/)\n2024-12-31 Most recent ingest, clean, and reformat at ERD (erd.data at noaa.gov).\n2026-09-08T22:39:51Z (local files)\n2026-09-08T22:39:51Z http://localhost:8080/erddap/tabledap/erdGtsppBestNc.ncCF?&time>=2026-08-01&time<2026-08-16&orderBy(\"trajectory,station_id,time,depth\")",
+    "id": "erdGtsppBest",
+    "infoUrl": "https://www.nodc.noaa.gov/GTSPP/",
+    "institution": "NOAA NODC",
+    "keywords": "cruise, data, density, depth, Earth Science > Oceans > Ocean Temperature > Water Temperature, Earth Science > Oceans > Salinity/Density > Salinity, global, gtspp, identifier, noaa, nodc, observation, ocean, oceans, organization, profile, program, salinity, sea, sea_water_practical_salinity, sea_water_temperature, seawater, station, temperature, temperature-salinity, time, type, water",
+    "keywords_vocabulary": "NODC Data Types, CF Standard Names, GCMD Science Keywords",
+    "LEXICON": "NODC_GTSPP",
+    "license": "These data are openly available to the public.  Please acknowledge the use of these data with:\nThese data were acquired from the US NOAA National Oceanographic Data Center (NODC) on 2026-09-08 from https://www.nodc.noaa.gov/GTSPP/.\n\nThe data may be used and redistributed for free but is not intended\nfor legal use, since it may contain inaccuracies. Neither the data\nContributor, ERD, NOAA, nor the United States Government, nor any\nof their employees or contractors, makes any warranty, express or\nimplied, including warranties of merchantability and fitness for a\nparticular purpose, or assumes any legal liability for the accuracy,\ncompleteness, or usefulness, of this information.",
+    "naming_authority": "gov.noaa.nodc",
+    "Northernmost_Northing": 84.96600341796875,
+    "project": "Joint IODE/JCOMM Global Temperature-Salinity Profile Programme",
+    "references": "https://www.nodc.noaa.gov/GTSPP/",
+    "sourceUrl": "(local files)",
+    "Southernmost_Northing": -66.58999633789062,
+    "standard_name_vocabulary": "CF Standard Name Table v70",
+    "subsetVariables": "trajectory, org, type, platform, cruise",
+    "summary": "The Global Temperature-Salinity Profile Programme (GTSPP) develops and maintains a global ocean temperature and salinity resource with data that are both up-to-date and of the highest quality. It is a joint World Meteorological Organization (WMO) and Intergovernmental Oceanographic Commission (IOC) program.  It includes data from XBTs, CTDs, moored and drifting buoys, and PALACE floats. For information about organizations contributing data to GTSPP, see http://gosic.org/goos/GTSPP-data-flow.htm .  The U.S. National Oceanographic Data Center (NODC) maintains the GTSPP Continuously Managed Data Base and releases new 'best-copy' data once per month.\n\nWARNING: This dataset has a *lot* of data.  If you request too much data, your request will fail.\n* If you don't specify a longitude and latitude bounding box, don't request more than a month's data at a time.\n* If you do specify a longitude and latitude bounding box, you can request data for a proportionally longer time period.\nRequesting data for a specific station_id may be slow, but it works.\n\n*** This ERDDAP dataset has data for the entire world for all available times (currently, up to and including the December 2024 data) but is a subset of the original NODC 'best-copy' data.  It only includes data where the quality flags indicate the data is 1=CORRECT, 2=PROBABLY GOOD, or 5=MODIFIED. It does not include some of the metadata, any of the history data, or any of the quality flag data of the original dataset. You can always get the complete, up-to-date dataset (and additional, near-real-time data) from the source: https://www.nodc.noaa.gov/GTSPP/ .  Specific differences are:\n* Profiles with a position_quality_flag or a time_quality_flag other than 1|2|5 were removed.\n* Rows with a depth (z) value less than -0.4 or greater than 10000 or a z_variable_quality_flag other than 1|2|5 were removed.\n* Temperature values less than -4 or greater than 40 or with a temperature_quality_flag other than 1|2|5 were set to NaN.\n* Salinity values less than 0 or greater than 41 or with a salinity_quality_flag other than 1|2|5 were set to NaN.\n* Time values were converted from \"days since 1900-01-01 00:00:00\" to \"seconds since 1970-01-01T00:00:00\".\n\nSee the Quality Flag definitions on page 5 and \"Table 2.1: Global Impossible Parameter Values\" on page 61 of\nhttps://www.nodc.noaa.gov/GTSPP/document/qcmans/GTSPP_RT_QC_Manual_20090916.pdf .\nThe Quality Flag definitions are also at\nhttps://www.nodc.noaa.gov/GTSPP/document/qcmans/qcflags.htm .",
+    "testOutOfDate": "now-45days",
+    "time_coverage_end": "2026-08-15T23:56:00Z",
+    "time_coverage_start": "2026-08-01T00:00:00Z",
+    "title": "Global Temperature and Salinity Profile Programme (GTSPP) Data, 1985-present",
+    "Westernmost_Easting": -179.50900268554688
+  },
+  "variables": {
+    "trajectory": {
+      "_Encoding": "ISO-8859-1",
+      "cf_role": "trajectory_id",
+      "comment": "Constructed from org_type_platform_cruise",
+      "ioos_category": "Identifier",
+      "long_name": "Trajectory ID"
+    },
+    "org": {
+      "_Encoding": "ISO-8859-1",
+      "comment": "From the first 2 characters of stream_ident:\nCode  Meaning\nAD  Australian Oceanographic Data Centre\nAF  Argentina Fisheries (Fisheries Research and Development National Institute (INIDEP), Mar del Plata, Argentina\nAO  Atlantic Oceanographic and Meteorological Lab\nAP  Asia-Pacific (International Pacific Research Center/ Asia-Pacific Data-Research Center)\nBI  BIO Bedford institute of Oceanography\nCF  Canadian Navy\nCS  CSIRO in Australia\nDA  Dalhousie University\nFN  FNOC in Monterey, California\nFR  Orstom, Brest\nFW  Fresh Water Institute (Winnipeg)\nGE  BSH, Germany\nIC  ICES\nII  IIP\nIK  Institut fur Meereskunde, Kiel\nIM  IML\nIO  IOS in Pat Bay, BC\nJA  Japanese Meteorologocal Agency\nJF  Japan Fisheries Agency\nME  EDS\nMO  Moncton\nMU  Memorial University\nNA  NAFC\nNO  NODC (Washington)\nNW  US National Weather Service\nOD  Old Dominion Univ, USA\nRU  Russian Federation\nSA  St Andrews\nSI  Scripps Institute of Oceanography\nSO  Southampton Oceanographic Centre, UK\nTC  TOGA Subsurface Data Centre (France)\nTI  Tiberon lab US\nUB  University of BC\nUQ  University of Quebec at Rimouski\nVL  Far Eastern Regional Hydromet. Res. Inst. of V\nWH  Woods Hole\n\nfrom https://www.nodc.noaa.gov/GTSPP/document/codetbls/gtsppcode.html#ref006",
+      "ioos_category": "Identifier",
+      "long_name": "Organization"
+    },
+    "type": {
+      "_Encoding": "ISO-8859-1",
+      "comment": "From the 3rd and 4th characters of stream_ident:\nCode  Meaning\nAR  Animal mounted recorder\nBA  BATHY message\nBF  Undulating Oceanographic Recorder (e.g. Batfish CTD)\nBO  Bottle\nBT  general BT data\nCD  CTD down trace\nCT  CTD data, up or down\nCU  CTD up trace\nDB  Drifting buoy\nDD  Delayed mode drifting buoy data\nDM  Delayed mode version from originator\nDT  Digital BT\nIC  Ice core\nID  Interpolated drifting buoy data\nIN  Ship intake samples\nMB  MBT\nMC  CTD and bottle data are mixed for the station\nMI  Data from a mixed set of instruments\nML  Minilog\nOF  Real-time oxygen and fluorescence\nPF  Profiling float\nRM  Radio message\nRQ  Radio message with scientific QC\nSC  Sediment core\nSG  Thermosalinograph data\nST  STD data\nSV  Sound velocity probe\nTE  TESAC message\nTG  Thermograph data\nTK  TRACKOB message\nTO  Towed CTD\nTR  Thermistor chain\nXB  XBT\nXC  Expendable CTD\n\nfrom https://www.nodc.noaa.gov/GTSPP/document/codetbls/gtsppcode.html#ref082",
+      "ioos_category": "Identifier",
+      "long_name": "Data Type"
+    },
+    "platform": {
+      "_Encoding": "ISO-8859-1",
+      "comment": "See the list of platform codes (sorted in various ways) at https://www.nodc.noaa.gov/GTSPP/document/codetbls/calllist.html",
+      "ioos_category": "Identifier",
+      "long_name": "GTSPP Platform Code",
+      "references": "https://www.nodc.noaa.gov/gtspp/document/codetbls/callist.html"
+    },
+    "cruise": {
+      "_Encoding": "ISO-8859-1",
+      "comment": "Radio callsign + year for real time data, or NODC reference number for delayed mode data.  See\nhttps://www.nodc.noaa.gov/GTSPP/document/codetbls/calllist.html .\n'X' indicates a missing value.\nTwo or more adjacent spaces in the original cruise names have been compacted to 1 space.",
+      "ioos_category": "Identifier",
+      "long_name": "Cruise_ID"
+    },
+    "station_id": {
+      "_FillValue": 2147483647,
+      "actual_range": [
+        63651768,
+        63980235
+      ],
+      "cf_role": "profile_id",
+      "comment": "Identification number of the station (profile) in the GTSPP Continuously Managed Database",
+      "ioos_category": "Identifier",
+      "long_name": "Station ID Number",
+      "missing_value": 2147483647
+    },
+    "longitude": {
+      "_CoordinateAxisType": "Lon",
+      "_FillValue": "NaN",
+      "actual_range": [
+        -179.50900268554688,
+        179.59800720214844
+      ],
+      "axis": "X",
+      "C_format": "%9.4f",
+      "colorBarMaximum": 180.0,
+      "colorBarMinimum": -180.0,
+      "epic_code": 502,
+      "FORTRAN_format": "F9.4",
+      "ioos_category": "Location",
+      "long_name": "Longitude",
+      "missing_value": "NaN",
+      "standard_name": "longitude",
+      "units": "degrees_east",
+      "valid_max": 180.0,
+      "valid_min": -180.0
+    },
+    "latitude": {
+      "_CoordinateAxisType": "Lat",
+      "_FillValue": "NaN",
+      "actual_range": [
+        -66.58999633789062,
+        84.96600341796875
+      ],
+      "axis": "Y",
+      "C_format": "%8.4f",
+      "colorBarMaximum": 90.0,
+      "colorBarMinimum": -90.0,
+      "epic_code": 500,
+      "FORTRAN_format": "F8.4",
+      "ioos_category": "Location",
+      "long_name": "Latitude",
+      "missing_value": "NaN",
+      "standard_name": "latitude",
+      "units": "degrees_north",
+      "valid_max": 90.0,
+      "valid_min": -90.0
+    },
+    "time": {
+      "_CoordinateAxisType": "Time",
+      "actual_range": [
+        1785542400.0,
+        1786838160.0
+      ],
+      "axis": "T",
+      "ioos_category": "Time",
+      "long_name": "Time",
+      "standard_name": "time",
+      "time_origin": "01-JAN-1970 00:00:00",
+      "units": "seconds since 1970-01-01T00:00:00Z"
+    },
+    "trajectoryIndex": {
+      "instance_dimension": "trajectory",
+      "ioos_category": "Identifier",
+      "long_name": "The trajectory to which this profile is associated."
+    },
+    "rowSize": {
+      "ioos_category": "Identifier",
+      "long_name": "Number of Observations for this Profile",
+      "sample_dimension": "obs"
+    },
+    "depth": {
+      "_CoordinateAxisType": "Height",
+      "_CoordinateZisPositive": "down",
+      "_FillValue": "NaN",
+      "actual_range": [
+        0.0,
+        2000.0
+      ],
+      "axis": "Z",
+      "C_format": "%6.2f",
+      "colorBarMaximum": 5000.0,
+      "colorBarMinimum": 0.0,
+      "epic_code": 3,
+      "FORTRAN_format": "F6.2",
+      "ioos_category": "Location",
+      "long_name": "Depth of the Observations",
+      "missing_value": "NaN",
+      "positive": "down",
+      "standard_name": "depth",
+      "units": "m"
+    },
+    "temperature": {
+      "_FillValue": "NaN",
+      "actual_range": [
+        -1.909999966621399,
+        40.0
+      ],
+      "C_format": "%9.4f",
+      "cell_methods": "time: point longitude: point latitude: point depth: point",
+      "colorBarMaximum": 32.0,
+      "colorBarMinimum": 0.0,
+      "coordinates": "time latitude longitude depth",
+      "epic_code": 28,
+      "FORTRAN_format": "F9.4",
+      "ioos_category": "Temperature",
+      "long_name": "Sea Water Temperature",
+      "missing_value": "NaN",
+      "standard_name": "sea_water_temperature",
+      "units": "degree_C"
+    },
+    "salinity": {
+      "_FillValue": "NaN",
+      "actual_range": [
+        0.0,
+        38.72999954223633
+      ],
+      "C_format": "%9.4f",
+      "cell_methods": "time: point longitude: point latitude: point depth: point",
+      "colorBarMaximum": 37.0,
+      "colorBarMinimum": 32.0,
+      "coordinates": "time latitude longitude depth",
+      "epic_code": 41,
+      "FORTRAN_format": "F9.4",
+      "ioos_category": "Salinity",
+      "long_name": "Practical Salinity",
+      "missing_value": "NaN",
+      "salinity_scale": "PSU",
+      "standard_name": "sea_water_practical_salinity",
+      "units": "PSU"
+    }
+  }
+}
