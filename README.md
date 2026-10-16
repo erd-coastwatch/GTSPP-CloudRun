@@ -81,6 +81,23 @@ The monthly schedule is 10:00 America/Los_Angeles on the 10th.
 
 ## Maintaining the deployed workflow
 
+Before switching the production state path, pause `gtspp-monthly-schedule`, wait
+for any active execution to finish, and copy the existing state and subset files.
+Deploy the updated job and install the updated VM helper; verify a successful run
+and subset install before removing the old state prefix.
+
+```bash
+gcloud scheduler jobs pause gtspp-monthly-schedule \
+  --project=ggn-nmfs-swfscerddap-dev-1 --location=us-east4
+gcloud storage rsync --recursive \
+  gs://erddap-swfsc-erd/_processing/gtspp/production/ \
+  gs://erddap-swfsc-erd/operations/workflow-state/gtspp/production/
+```
+
+The unscheduled staging job now writes under `staging/gtspp/` and keeps its
+state under `operations/workflow-state/gtspp/staging/`. Staging state does not
+need to be copied if those test runs are being retired.
+
 Normal monthly updates need no source-code edits or manual date changes. Keep both
 schedules enabled. The monthly processor detects revisions; the VM polls for the
 completed subset and updates the local ingestion date automatically.
@@ -141,7 +158,7 @@ workflow's root cron line. Leave other VM cron entries and production data intac
 - Job: gtspp-monthly-processor; 4 CPU, 8 GiB, four-hour timeout, one task, no task retries.
 - Service account: swfscerddap-run-sa1@ggn-nmfs-swfscerddap-dev-1.iam.gserviceaccount.com.
 - Output: gs://erddap-swfsc-erd/points/gtsppNcCF/.
-- State/reports/subset: gs://erddap-swfsc-erd/_processing/gtspp/production/.
+- State/reports/subset: gs://erddap-swfsc-erd/operations/workflow-state/gtspp/production/.
 - Regional secret: erddap-flag-erd-gtspp-best, us-east4.
 - ERDDAP: https://155.206.244.135/erddap, temporary insecure TLS setting.
 

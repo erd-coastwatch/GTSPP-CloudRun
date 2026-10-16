@@ -18,7 +18,7 @@ FLAG_SECRET_SCOPE="${FLAG_SECRET_SCOPE:-regional}"
 SCHEDULE="${SCHEDULE:-0 10 10 * *}"
 TIME_ZONE="${TIME_ZONE:-America/Los_Angeles}"
 case "$JOB_MODE" in
-  staging) JOB_NAME="gtspp-monthly-staging"; PREFIX="_staging/gtspp/points/gtsppNcCF" ;;
+  staging) JOB_NAME="gtspp-monthly-staging"; PREFIX="staging/gtspp/points/gtsppNcCF" ;;
   production) JOB_NAME="gtspp-monthly-processor"; PREFIX="points/gtsppNcCF"; START_MONTH=""; END_MONTH="" ;;
   *) echo "JOB_MODE must be staging or production" >&2; exit 1 ;;
 esac
@@ -41,7 +41,7 @@ docker buildx build --platform "${PLATFORM:-linux/amd64}" -t "$IMAGE_PATH" --loa
 gcloud artifacts repositories describe "$REPO_NAME" --location "$REGION" --project "$PROJECT_ID" >/dev/null
 gcloud auth configure-docker "${REGION}-docker.pkg.dev" --quiet
 docker push "$IMAGE_PATH"
-envs="JOB_MODE=${JOB_MODE},BUCKET=${BUCKET},PREFIX=${PREFIX},STATE_PREFIX=_processing/gtspp/${JOB_MODE},LOOKBACK_MONTHS=4,MAX_MONTHS=8,START_MONTH=${START_MONTH},END_MONTH=${END_MONTH}"
+envs="JOB_MODE=${JOB_MODE},BUCKET=${BUCKET},PREFIX=${PREFIX},STATE_PREFIX=operations/workflow-state/gtspp/${JOB_MODE},LOOKBACK_MONTHS=4,MAX_MONTHS=8,START_MONTH=${START_MONTH},END_MONTH=${END_MONTH}"
 if [[ "$JOB_MODE" == production ]]; then
   envs+=",ERDDAP_BASE_URL=${ERDDAP_BASE_URL:-https://155.206.244.135/erddap},ERDDAP_INSECURE=${ERDDAP_INSECURE:-true},ERDDAP_FLAG_SECRET=${secret_resource}"
 fi

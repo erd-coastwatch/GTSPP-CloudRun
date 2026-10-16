@@ -11,8 +11,9 @@ flock -n 9 || exit 0
 temp_file="$(mktemp)"
 temp_state="$(mktemp)"
 trap 'unlink "$temp_file"; unlink "$temp_state"' EXIT
-gcloud storage cp "gs://${BUCKET}/_processing/gtspp/production/subset/erdGtsppBest.json" "$temp_file" --project "$PROJECT_ID"
-gcloud storage cp "gs://${BUCKET}/_processing/gtspp/production/state.json" "$temp_state" --project "$PROJECT_ID"
+STATE_PREFIX="${STATE_PREFIX:-operations/workflow-state/gtspp/production}"
+gcloud storage cp "gs://${BUCKET}/${STATE_PREFIX}/subset/erdGtsppBest.json" "$temp_file" --project "$PROJECT_ID"
+gcloud storage cp "gs://${BUCKET}/${STATE_PREFIX}/state.json" "$temp_state" --project "$PROJECT_ID"
 changed="$(python3 - "$temp_file" "${CONTENT_DIR}/subset/erdGtsppBest.json" "$temp_state" "${CONTENT_DIR}/datasets.xml" <<'PY'
 import json, os, sys, tempfile, re, shutil, stat
 from datetime import datetime, timezone

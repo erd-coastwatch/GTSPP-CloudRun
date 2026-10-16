@@ -198,6 +198,9 @@ class CloudDestination:
         self.bucket = storage.Client().bucket(bucket)
         self.prefix = prefix.strip("/")
         self.state_prefix = state_prefix.strip("/")
+        if any(part.startswith("_") for path in (self.prefix, self.state_prefix)
+               for part in path.split("/")):
+            raise ValueError("Cloud output and state paths must not use underscore prefixes")
         self.generation = 0
         self.lock_generation = None
 
@@ -274,13 +277,13 @@ def run(args):
             raise ValueError("Local output cannot run in production mode")
         dest = LocalDestination(args.local_output)
     else:
-        prefix = os.getenv("PREFIX", "_staging/gtspp/points/gtsppNcCF")
+        prefix = os.getenv("PREFIX", "staging/gtspp/points/gtsppNcCF")
         if mode == "production" and prefix.strip("/") != "points/gtsppNcCF":
             raise ValueError("Production output must be points/gtsppNcCF")
-        if mode == "staging" and not prefix.startswith("_staging/"):
-            raise ValueError("Staging output must be under _staging/")
+        if mode == "staging" and not prefix.startswith("staging/"):
+            raise ValueError("Staging output must be under staging/")
         dest = CloudDestination(os.getenv("BUCKET", "erddap-swfsc-erd"), prefix,
-            os.getenv("STATE_PREFIX", f"_processing/gtspp/{mode}"))
+            os.getenv("STATE_PREFIX", f"operations/workflow-state/gtspp/{mode}"))
     http = session()
     flag_key = get_flag_key() if mode == "production" and not args.plan_only else None
     dest.acquire()
